@@ -3,28 +3,41 @@
 //I've provided "min" and "max" functions in
 //case they are useful to you
 int min (int a, int b) {
-  if (a < b) {
-    return a;
-  }
-  return b;
+  return a = a<b? a:b;
 }
 int max (int a, int b) {
-  if (a > b) {
-    return a;
-  }
-  return b;
+  return a = a>b ? a:b;
 }
 
 //Declare your rectangle structure here!
-
+typedef struct {
+  int x;
+  int y;
+  int width;
+  int height;
+} rectangle;
 
 rectangle canonicalize(rectangle r) {
   //WRITE THIS FUNCTION
+  if (r.width < 0){
+    r.x += r.width;
+    r.width *= -1;
+  }
+  if (r.height < 0){
+    r.y += r.height;
+    r.height *= -1;
+  }
+  
   return r;
 }
 rectangle intersection(rectangle r1, rectangle r2) {
   //WRITE THIS FUNCTION
-  return r1;
+  rectangle t;
+  t.x = max(r1.x,r2.x);
+  t.y = max(r1.y,r2.y);
+  t.width = min(r1.width + r1.x, r2.width + r2.x) - t.x;
+  t.height = min(r1.height + r2.y, r2.height + r2.y) - t.y;
+  return t;
 }
 
 //You should not need to modify any code below this line
