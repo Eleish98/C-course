@@ -3,10 +3,14 @@
 //I've provided "min" and "max" functions in
 //case they are useful to you
 int min (int a, int b) {
-  return a = a<b? a:b;
+  if (a<b)
+    return a;
+  return b;
 }
 int max (int a, int b) {
-  return a = a>b ? a:b;
+  if (a>b)
+    return a;
+  return b;
 }
 
 //Declare your rectangle structure here!
@@ -33,10 +37,23 @@ rectangle canonicalize(rectangle r) {
 rectangle intersection(rectangle r1, rectangle r2) {
   //WRITE THIS FUNCTION
   rectangle t;
+  r1=canonicalize(r1);
+  r2 = canonicalize(r2);
   t.x = max(r1.x,r2.x);
   t.y = max(r1.y,r2.y);
   t.width = min(r1.width + r1.x, r2.width + r2.x) - t.x;
-  t.height = min(r1.height + r2.y, r2.height + r2.y) - t.y;
+  t.height = min(r1.height + r1.y, r2.height + r2.y) - t.y;
+  if (!((t.x >= r1.x && t.x <= r1.x + r1.width) &&
+	(t.x >= r2.x && t.x <= r2.x + r2.width))){
+    t.width = 0;
+    t.height = 0;
+  }
+  if (!((t.y >= r1.y && t.y <= r1.y + r1.height) &&
+	(t.y >= r2.y && t.y <= r2.y + r2.height))){ 
+    t.height = 0;
+    t.width = 0;
+  }
+  // return canonicalize(t);
   return t;
 }
 
