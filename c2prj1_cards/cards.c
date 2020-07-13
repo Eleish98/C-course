@@ -5,7 +5,7 @@
 
 
 void assert_card_valid(card_t c) {
-  assert(c.value >= 2 && c.value <=14 &&
+  assert(c.value >= 2 && c.value <=VALUE_ACE &&
 	 c.suit >= SPADES && c.suit <= CLUBS); 
 
 }
@@ -109,7 +109,6 @@ card_t card_from_letters(char value_let, char suit_let) {
     temp.value = -1;
     break;
   }
-  assert_card_valid(temp);
   return temp;
 }
 
@@ -139,6 +138,5 @@ card_t card_from_num(unsigned c) {
     temp.value = VALUE_QUEEN;
   else if (c%13 == 12)
     temp.value = VALUE_KING;
-  assert_card_valid(temp);
   return temp;
 }
