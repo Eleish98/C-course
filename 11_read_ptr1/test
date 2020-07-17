@@ -1,9 +1,2 @@
-test: test.o
-     gcc -o test test.o
-
-test.o: test.c stdio.h stdlib.h
-	gcc -std=gnu99 -pedantic -Wall -c test.c
-
-
-clean:
-	rm -f test
+test: test.c stdio.h stdlib.h
+      gcc -std=gnu99 -Wall -pedantic -c test.c
