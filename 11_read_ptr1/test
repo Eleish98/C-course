@@ -1,7 +1,6 @@
-test : test.o
-     gcc -o edit  test test.o
+test: test.c
+     gcc -g -Wall -o test test.c
 
-test.o: test.c stdio.h stdlib.h
-	gcc -c test.c
+
 clean:
-	rm edit test.o
+	$(RM) test
