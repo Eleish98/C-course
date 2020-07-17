@@ -1,5 +1,5 @@
 test : test.o
-       gcc -o edit  test test.o
+     gcc -o edit  test test.o
 
 test.o: test.c stdio.h stdlib.h
 	gcc -c test.c
