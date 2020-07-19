@@ -1,5 +1,5 @@
 
-int maxSeq(int * array, int  n){
+size_t maxSeq(int * array, size_t  n){
   if (n == 1 || n == 0)
     return n;
   if (n<0)
