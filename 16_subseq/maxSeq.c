@@ -11,7 +11,7 @@ long maxSeq(int * array, long  n){
     else{
       if (length > maxL)
 	maxL = length;
-      length =1;
+      length =0;
     }
   }
   if (length > maxL)
