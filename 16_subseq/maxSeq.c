@@ -1,6 +1,8 @@
 
 int maxSeq(int * array, int  n){
-  double length = 1,maxL=1;
+if (n == 1 || n == 0)
+  return n;
+  int length = 1,maxL=1;
   for (int i=0; i < n; i++){
     if (array[i]<array[i+1])
       length++;
@@ -10,7 +12,7 @@ int maxSeq(int * array, int  n){
       length =1;
     }
   }
-  if (length > maxL)
+if (length > maxL)
     maxL =length;
-return (int) maxL;
+return  maxL;
 }
