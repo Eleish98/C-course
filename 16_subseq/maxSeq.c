@@ -1,10 +1,10 @@
 
-size_t maxSeq(int * array, size_t  n){
+long maxSeq(int * array, long  n){
   if (n == 1 || n == 0)
     return n;
   if (n<0)
     return 0;
-  int length = 1, maxL=1;
+  long length = 1, maxL=1;
   for (int i=0; i < n; i++){
     if (array[i]<array[i+1])
       length+=1;
