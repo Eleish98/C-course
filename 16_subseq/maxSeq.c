@@ -1,5 +1,5 @@
 
-int maxSeq(int * array, size_t n){
+int maxSeq(int * array, int  n){
   double length = 0,maxL=0;
   for (int i=0; i < n; i++){
     if (array[i]<array[i+1])
