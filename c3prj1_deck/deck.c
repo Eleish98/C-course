@@ -13,17 +13,13 @@ void print_hand(deck_t * hand){
 
 int deck_contains(deck_t * d, card_t c) {
   size_t N = d->n_cards;
-  int f=0;
   for(int i=0;i<N;i++){
     if (d->cards[i]->value == c.value
 	&& d->cards[i]->suit == c.suit){
-      if (f==0)
-	f=1;
-      else
-	return 0;
+      return 1;
     }
   }
-  return f;
+  return 0;
 }
 
 void shuffle(deck_t * d){
@@ -41,7 +37,12 @@ void shuffle(deck_t * d){
 void assert_full_deck(deck_t * d) {
   unsigned N = d->n_cards;
   for (int i=0;i<N;i++){
-    assert(deck_contains(d,card_from_num(i))==1);
+    if (deck_contains(d,*(d->cards[i]))){
+      for (int j=i+1;j<N;j++){
+	if (d->cards[j]->value == d->cards[i]->value
+	&& d->cards[j]->suit == d->cards[i]->suit)
+	  assert(0);
+      }
+    }
   }
-
 }

@@ -128,17 +128,18 @@ card_t card_from_num(unsigned c) {
     temp.suit = CLUBS;
     break;
   }
-  if (c%13 >=1 && c%13 <9)
-    temp.value = (c%13)+1;
-  else if (c%13 == 9)
-    temp.value = 0;
-  else if (c%13 == 0)
-    temp.value = VALUE_ACE;
+  c+=2;
+  if (c%13 >=2 && c%13 <=9)
+    temp.value = (c%13);
   else if (c%13 == 10)
-    temp.value = VALUE_JACK;
+    temp.value = 0;
+  else if (c%13 == 1)
+    temp.value = VALUE_ACE;
   else if (c%13 == 11)
-    temp.value = VALUE_QUEEN;
+    temp.value = VALUE_JACK;
   else if (c%13 == 12)
+    temp.value = VALUE_QUEEN;
+  else if (c%13 == 0)
     temp.value = VALUE_KING;
   return temp;
 }
