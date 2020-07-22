@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "deck.h"
+
 void print_hand(deck_t * hand){
   unsigned N=hand->n_cards;
   for (int i=0;i<N;i++){
@@ -12,12 +13,17 @@ void print_hand(deck_t * hand){
 
 int deck_contains(deck_t * d, card_t c) {
   size_t N = d->n_cards;
+  int f=0;
   for(int i=0;i<N;i++){
     if (d->cards[i]->value == c.value
-	&& d->cards[i]->suit == c.suit)
-      return 1;
+	&& d->cards[i]->suit == c.suit){
+      if (f==0)
+	f=1;
+      else
+	return 0;
+    }
   }
-  return 0;
+  return f;
 }
 
 void shuffle(deck_t * d){
