@@ -29,7 +29,7 @@ char value_letter(card_t c) {
   if (c.value >=2 && c.value <=9)
     return c.value +'0';
   switch(c.value){
-  case  10:
+  case  0:
     return '0';
   case VALUE_ACE:
       return 'A';
