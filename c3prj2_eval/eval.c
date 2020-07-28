@@ -163,7 +163,7 @@ void Max_card(deck_t *hand, unsigned idx,card_t *ans){
   unsigned N=hand->n_cards;
   ans->value=hand->cards[idx]->value;
   ans->suit=hand->cards[idx]->suit;
-  for (int i=idx+1;i<N;i++){
+  for (int i=idx+1;i<N-1;i++){
     if (hand->cards[idx]->value > ans->value){
       ans->value=hand->cards[i]->value;
       ans->suit=hand->cards[i]->suit;
