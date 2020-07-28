@@ -32,13 +32,15 @@ char value_letter(card_t c) {
   case  10:
     return '0';
   case VALUE_ACE:
-      return 'A';
+    return 'A';
   case VALUE_KING:
-      return 'K';
+    return 'K';
   case VALUE_QUEEN:
-      return 'Q';
+    return 'Q';
   case VALUE_JACK:
-      return 'J';
+    return 'J';
+  case 0:
+    return '0';
   default:
     return 0;
   }
