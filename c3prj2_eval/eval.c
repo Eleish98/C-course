@@ -76,7 +76,7 @@ ssize_t  find_secondary_pair(deck_t * hand,
 }
 
 int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
-  size_t N = hand->n_cards;
+size_t N = hand->n_cards;
   if (N<=0)
     return 0;
   int count=0,A_count=1;
