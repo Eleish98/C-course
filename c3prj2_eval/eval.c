@@ -77,10 +77,13 @@ ssize_t  find_secondary_pair(deck_t * hand,
 
 int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
   size_t N = hand->n_cards;
+  if (N<=0)
+    return 0;
   int count=0,A_count=1;
   if (fs != NUM_SUITS){
-    for (int i=index;i<N;i++){
-      if ((hand->cards[i]->value) - (hand->cards[i+1]->value)==1){
+    for (int i=index;i<N-1;i++){
+      int T=(int)(hand->cards[i]->value) -(int)(hand->cards[i+1]->value);
+      if (T==1){
 	if (check_suit(hand->cards[i],fs)&&check_suit(hand->cards[i+1],fs))
 	  count++;
 	if (count == 5)
@@ -88,9 +91,9 @@ int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
       }
     }
     if (hand->cards[index]->value == VALUE_ACE && count <5 )
-      for (int i=index; i<N;i++){
+      for (int i=index; i<N-1;i++){
 	if (hand->cards[i]->value == 5){
-	  for (int j=i;j<N;j++)
+	  for (int j=i;j<N-1;j++)
 	    if (hand->cards[j]->value - hand->cards[j+1]->value ==1){
 	      if (check_suit(hand->cards[j],fs) && check_suit(hand->cards[j+1],fs))
 		A_count++;
@@ -103,7 +106,7 @@ int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
       }
   }
    if (fs == NUM_SUITS){
-    for (int i=index;i<N;i++){
+    for (int i=index;i<N-1;i++){
       if ((hand->cards[i]->value) - (hand->cards[i+1]->value)==1){
 	count++;
 	if (count == 5)
@@ -111,9 +114,9 @@ int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
       }
     }
     if (hand->cards[index]->value == VALUE_ACE && count <5 )
-      for (int i=index; i<N;i++){
+      for (int i=index; i<N-1;i++){
 	if (hand->cards[i]->value == 5){
-	  for (int j=i;j<N;j++)
+	  for (int j=i;j<N-1;j++)
 	    if (hand->cards[j]->value - hand->cards[j+1]->value ==1){
 	      	A_count++;
 	      if (A_count == 5)
