@@ -51,10 +51,10 @@ suit_t flush_suit(deck_t * hand) {
 }
 
 unsigned get_largest_element(unsigned * arr, size_t n) {
-  unsigned M = *arr;
+  unsigned M = arr[0];
   for(int i=1;i<n;i++)
-    if (*(arr+i) > M)
-      M=*(arr+i);
+    if (arr[i] > M)
+      M=arr[i];
   return M;
 }
 
@@ -91,7 +91,7 @@ size_t N = hand->n_cards;
       }
     }
     if (hand->cards[index]->value == VALUE_ACE && count <5 )
-      for (int i=index; i<N-1;i++){
+      for (int i=index; i<N;i++){
 	if (hand->cards[i]->value == 5){
 	  for (int j=i;j<N-1;j++)
 	    if (hand->cards[j]->value - hand->cards[j+1]->value ==1){
@@ -114,7 +114,7 @@ size_t N = hand->n_cards;
       }
     }
     if (hand->cards[index]->value == VALUE_ACE && count <5 )
-      for (int i=index; i<N-1;i++){
+      for (int i=index; i<N;i++){
 	if (hand->cards[i]->value == 5){
 	  for (int j=i;j<N-1;j++)
 	    if (hand->cards[j]->value - hand->cards[j+1]->value ==1){
@@ -155,7 +155,14 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
       unsigned N=hand->n_cards;
       temp.value=hand->cards[i]->value;
       //temp = hand->cards[i];
-      for (int j=i+1;j<N-1;j++){
+      for (int j=i;j<N;j++){
+	if (hand->cards[j]->value > temp.value){
+	  ans.cards[i]=hand->cards[j];
+	  //temp=hand->cards[j];
+	}
+      }
+      temp.value=hand->cards[0]->value;
+      for (int j=0;j<i;j++){
 	if (hand->cards[j]->value > temp.value){
 	  ans.cards[i]=hand->cards[j];
 	  //temp=hand->cards[j];
