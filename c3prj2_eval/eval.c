@@ -4,7 +4,7 @@
 #include <assert.h>
 
 int check_suit(card_t * card,suit_t suit);
-card_t Max_card (deck_t *hand,unsigned idx); 
+void Max_card (deck_t *hand,unsigned idx,card_t *ans); 
 
 
 int card_ptr_comp(const void * vp1, const void * vp2) {
@@ -150,7 +150,8 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
   if (n<5){
     
     for (int i=idx+n;i<5;i++){
-      card_t temp = Max_card(hand,i);
+      card_t temp;
+      Max_card(hand,i,&temp);
       ans.cards[i]->value=temp.value;
       ans.cards[i]->suit=temp.suit;
     }
@@ -158,18 +159,16 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
   return ans;
 }
 
-card_t Max_card(deck_t *hand, unsigned idx){
+void Max_card(deck_t *hand, unsigned idx,card_t *ans){
   unsigned N=hand->n_cards;
-  card_t ans;
-  ans.value=hand->cards[idx]->value;
-  ans.suit=hand->cards[idx]->suit;
+  ans->value=hand->cards[idx]->value;
+  ans->suit=hand->cards[idx]->suit;
   for (int i=idx+1;i<N;i++){
-    if (hand->cards[idx]->value > ans.value){
-      ans.value=hand->cards[i]->value;
-      ans.suit=hand->cards[i]->suit;
+    if (hand->cards[idx]->value > ans->value){
+      ans->value=hand->cards[i]->value;
+      ans->suit=hand->cards[i]->suit;
     }
   }
-  return ans;
 }
 int compare_hands(deck_t * hand1, deck_t * hand2) {
   qsort((hand1->cards[0]),hand1->n_cards,sizeof(card_t),card_ptr_comp);
