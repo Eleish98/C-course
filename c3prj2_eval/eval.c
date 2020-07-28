@@ -145,7 +145,7 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
 
   hand_eval_t ans;
   ans.ranking = what;
-  for (size_t i=idx; i<n; i++)
+  for (size_t i=idx; i<n-1; i++)
     ans.cards[i] = hand->cards[i];
   if (n<5){
     
