@@ -145,15 +145,22 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
 
   hand_eval_t ans;
   ans.ranking = what;
-  for (size_t i=idx; i<n-1; i++)
-    ans.cards[i] = hand->cards[i];
+  for (size_t i=0  ; i<n; i++){
+    ans.cards[i] = hand->cards[i+idx];
+  }
   if (n<5){
     
-    for (int i=idx+n;i<5;i++){
+    for (int i=n;i<5;i++){
       card_t temp;
-      Max_card(hand,i,&temp);
-      ans.cards[i]->value=temp.value;
-      ans.cards[i]->suit=temp.suit;
+      unsigned N=hand->n_cards;
+      temp.value=hand->cards[i]->value;
+      //temp = hand->cards[i];
+      for (int j=i+1;j<N-1;j++){
+	if (hand->cards[j]->value > temp.value){
+	  ans.cards[i]=hand->cards[j];
+	  //temp=hand->cards[j];
+	}
+      }
     }
   }
   return ans;
