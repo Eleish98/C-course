@@ -4,12 +4,12 @@
 #include <assert.h>
 
 int check_suit(card_t * card,suit_t suit);
-void Max_card (deck_t *hand,unsigned idx,card_t *ans); 
+card_t * Max_card (deck_t *hand,unsigned idx,size_t n); 
 
 
 int card_ptr_comp(const void * vp1, const void * vp2) {
-  const card_t * const  p1=vp1;
-  const card_t * const  p2=vp2;
+  const card_t *   p1=vp1;
+  const card_t *   p2=vp2;
   if (p1->value > p2->value)
     return -1;
   if (p1->value < p2->value)
@@ -141,6 +141,17 @@ int check_suit(card_t * card,suit_t suit){
     return 1;
   return 0;
 }
+void sort(card_t **P,const int S){
+  for (int i=0;i<S;i++){
+    for (int j=0;j<S;j++){
+      if (P[j]->value < P[i]->value){
+	card_t *t=P[j];
+	P[j]=P[i];
+	P[i]=t;
+      }
+    }
+  }
+}
 hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,size_t idx) {
 
   hand_eval_t ans;
@@ -149,7 +160,17 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
     ans.cards[i] = hand->cards[i+idx];
   }
   if (n<5){
-    
+    const int SIZE=hand->n_cards-n;
+    card_t *P[SIZE];
+    for (int i=0,j=0;i<hand->n_cards;i++)
+      if (i>=idx && i<idx+n)
+	continue;
+      else
+	P[j++]=hand->cards[i];
+    sort(P,SIZE);
+    for (int i=0;i<SIZE;i++)
+      ans.cards[i+n]=P[i];
+    /*
     for (int i=n;i<5;i++){
       card_t temp;
       unsigned N=hand->n_cards;
@@ -170,10 +191,13 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
       }
     }
   }
+	   */
+  }
   return ans;
 }
-
-void Max_card(deck_t *hand, unsigned idx,card_t *ans){
+  
+/*
+card_t *Max_card(deck_t *hand, unsigned idx,){
   unsigned N=hand->n_cards;
   ans->value=hand->cards[idx]->value;
   ans->suit=hand->cards[idx]->suit;
@@ -183,26 +207,26 @@ void Max_card(deck_t *hand, unsigned idx,card_t *ans){
       ans->suit=hand->cards[i]->suit;
     }
   }
-}
+  }*/
 int compare_hands(deck_t * hand1, deck_t * hand2) {
-  qsort((hand1->cards[0]),hand1->n_cards,sizeof(card_t),card_ptr_comp);
-   qsort((hand2->cards[0]),hand2->n_cards,sizeof(card_t),card_ptr_comp);
-   hand_eval_t H1,H2;
-   H1=evaluate_hand(hand1);
-   H2=evaluate_hand(hand2);
-   if (H1.ranking != H2.ranking){
-     if (H1.ranking < H2.ranking)
-       return -1;
-     else
-       return 1;
-   }
-   else {
-     for (int i=0;i<5;i++)
-       if (H1.cards[i]->value != H2.cards[i]->value)
-	 return H1.cards[i]->value-H2.cards[i]->value;
-     return 0;
-   }
-   return 0;
+  qsort((hand1->cards),hand1->n_cards,sizeof(card_t*),card_ptr_comp);
+  qsort((hand2->cards),hand2->n_cards,sizeof(card_t*),card_ptr_comp);
+  hand_eval_t H1,H2;
+  H1=evaluate_hand(hand1);
+  H2=evaluate_hand(hand2);
+  if (H1.ranking != H2.ranking){
+    if (H1.ranking < H2.ranking)
+      return -1;
+    else
+      return 1;
+  }
+  else {
+    for (int i=0;i<5;i++)
+      if (H1.cards[i]->value != H2.cards[i]->value)
+	return H1.cards[i]->value-H2.cards[i]->value;
+    return 0;
+  }
+  return 0;
 }
 
 
