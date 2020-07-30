@@ -8,8 +8,8 @@ card_t * Max_card (deck_t *hand,unsigned idx,size_t n);
 
 
 int card_ptr_comp(const void * vp1, const void * vp2) {
-  const card_t *   p1=vp1;
-  const card_t *   p2=vp2;
+  const card_t *   p1=*(card_t**)vp1;
+  const card_t *   p2=*(card_t**)vp2;
   if (p1->value > p2->value)
     return -1;
   if (p1->value < p2->value)

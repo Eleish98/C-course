@@ -2,9 +2,32 @@
 #include <stdlib.h>
 #include <assert.h>
 #include "deck.h"
-
+/*
+int card_comp(const void * vp1, const void * vp2) {
+  const card_t *   p1=*(card_t**)vp1;
+  const card_t *   p2=*(card_t**)vp2;
+  if (p1->value) >p2->value)
+    return -1;
+if ((*(p1))->value < (*(p2))->value)
+    return 1;
+if ((*(p1))->value == (*(p2))->value){
+  if ((*(p1))->suit < (*(p2))->suit)
+      return -1;
+  if ((*(p1))->suit > (*(p2))->suit)
+      return 1;
+  if ((*(p1))->suit == (*(p2))->suit)
+      return 0;
+  }
+  return 0;
+}
+*/
 void print_hand(deck_t * hand){
-unsigned N=hand->n_cards;
+  //card_t * H[hand->n_cards];
+  //for (int i=0; i<hand->n_cards;i++)
+  // H[i] = hand->cards[i];
+  //for (int i=0;i<hand->n_cards;i++)
+  // qsort(H,hand->n_cards,sizeof(card_t),card_comp);
+  unsigned N=hand->n_cards;
   for (int i=0;i<N;i++){
     print_card(*(hand->cards[i]));
     printf(" ");
