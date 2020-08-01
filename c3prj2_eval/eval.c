@@ -76,6 +76,49 @@ ssize_t  find_secondary_pair(deck_t * hand,
 }
 
 int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
+  size_t N=hand->n_cards;
+  int count =1,acL=1;
+  card_t *current_c;
+  current_c=hand->cards[index];
+    for (int i=index;i<N-1;i++){
+      if (current_c->value - hand->cards[i+1]->value == 1){
+	if (fs != NUM_SUITS){
+	  if (check_suit(current_c,fs) && check_suit(hand->cards[i+1],fs)){
+	      count++;
+	      current_c =hand->cards[i+1];
+	  }
+	}
+	else {
+	  count++;
+	  current_c=hand->cards[i+1];
+	}
+      }
+    }
+  if (count >= 5)
+    return 1;
+  if (current_c->value == VALUE_ACE){
+    current_c=hand->cards[N-1];
+    for (int i =N-1;i>index;i--){
+      if (current_c->value - hand->cards[i-1]->value == -1){
+	if (fs != NUM_SUITS){
+	  if (check_suit(current_c,fs) && check_suit(hand->cards[i-1],fs)){
+	    acL++;
+	    current_c = hand->cards[i-1];
+	  }
+	}
+	else{
+	  acL++;
+	  current_c = hand->cards[i-1];
+	}
+      }
+    }
+  }
+  if (acL >= 5)
+    return -1;
+  return 0;
+}
+/*
+int is_straight_at(deck_t * hand, size_t index, suit_t fs) {
 size_t N = hand->n_cards;
   if (N<=0)
     return 0;
@@ -92,7 +135,7 @@ size_t N = hand->n_cards;
     }
     if (hand->cards[index]->value == VALUE_ACE && count <5 )
       for (int i=index; i<N;i++){
-	if (hand->cards[i]->value == 5){
+	if (hand->cards[i]->value == 4){
 	  for (int j=i;j<N-1;j++)
 	    if (hand->cards[j]->value - hand->cards[j+1]->value ==1){
 	      if (check_suit(hand->cards[j],fs) && check_suit(hand->cards[j+1],fs))
@@ -115,7 +158,7 @@ size_t N = hand->n_cards;
     }
     if (hand->cards[index]->value == VALUE_ACE && count <5 )
       for (int i=index; i<N;i++){
-	if (hand->cards[i]->value == 5){
+	if (hand->cards[i]->value == 4){
 	  for (int j=i;j<N-1;j++)
 	    if (hand->cards[j]->value - hand->cards[j+1]->value ==1){
 	      	A_count++;
@@ -135,7 +178,7 @@ size_t N = hand->n_cards;
       return 1;
   return 0;
 }
-
+*/
 int check_suit(card_t * card,suit_t suit){
   if (card->suit==suit)
     return 1;
