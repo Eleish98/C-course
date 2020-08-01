@@ -213,7 +213,7 @@ hand_eval_t build_hand_from_match(deck_t * hand,unsigned n,hand_ranking_t what,s
       else
 	P[j++]=hand->cards[i];
     sort(P,SIZE);
-    for (int i=0;i<SIZE;i++)
+    for (int i=0;i+n<5;i++)
       ans.cards[i+n]=P[i];
     /*
     for (int i=n;i<5;i++){
