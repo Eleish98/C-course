@@ -260,7 +260,7 @@ int compare_hands(deck_t * hand1, deck_t * hand2) {
   H1=evaluate_hand(hand1);
   H2=evaluate_hand(hand2);
   if (H1.ranking != H2.ranking){
-    if (H1.ranking < H2.ranking)
+    if (H1.ranking > H2.ranking)
       return -1;
     else
       return 1;
